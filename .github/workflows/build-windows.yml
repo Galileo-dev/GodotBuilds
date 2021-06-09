@@ -57,6 +57,9 @@ jobs:
       #   - name: Build GODOT
       #     run: scons -j6 platform=windows target=release_debug
 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
