@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: widows-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -54,7 +54,6 @@ jobs:
           Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
           scoop install python scons yasm make
       - run: ls
-
       - name: Build GODOT
         run: scons -j6 platform=windows target=release_debug bits=64
 
@@ -62,7 +61,7 @@ jobs:
       #   uses: edgarrc/action-7z@v1
       #   with:
       #     args: 7z a -t7z -mx=9 godot.7z ./tests/
-      # - run: ls 
+      # - run: ls
       # - name: Upload binaries to release
 
       #   uses: svenstaro/upload-release-action@v2
