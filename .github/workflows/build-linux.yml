@@ -20,6 +20,13 @@ jobs:
           # This is important to fetch the changes to the previous commit
           fetch-depth: 0
 
+      - name: Install Other Linux Dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y python3 scons
+          ls
+
       - name: Set up MinGW
         if: runner.os == 'Linux'
         run: |
@@ -27,15 +34,9 @@ jobs:
           tar xvf llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
           mv llvm-mingw-20201020-ucrt-ubuntu-18.04 /opt/llvm-mingw
           export PATH="/opt/llvm-mingw/bin:$PATH"
-
-      - name: Install Other Linux Dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y python3 scons
-          ls
-      - name: Build GODOT
-        run: scons -j6 platform=windows target=release_debug bits=64 use_llvm=yes
+           scons platform=windows bits="64" tools=yes target=debug use_llvm=yes
+      # - name: Build GODOT
+      #   run: scons -j6 platform=windows target=release_debug bits=64 use_llvm=yes
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
