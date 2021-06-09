@@ -35,7 +35,7 @@ jobs:
           sudo apt-get install -y python3 scons
           ls
       - name: Build GODOT
-        run: scons -j6 platform=windows target=release_debug bits=64
+        run: scons -j6 platform=windows target=release_debug bits=64 use_llvm=yes
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
