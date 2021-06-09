@@ -62,7 +62,8 @@ jobs:
         uses: crazy-max/ghaction-chocolatey@v1.5
         with:
           args: -h
-        run: choco install yasm make
+        
+      - run: choco install yasm make
 
       
 
