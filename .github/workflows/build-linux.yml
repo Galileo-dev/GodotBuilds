@@ -1,0 +1,38 @@
+# name: "Create weekly build"
+# on:
+#   # schedule:
+#   #   - cron: "0 0 * * *"
+#   push
+
+# jobs:
+#   build:
+#     name: Build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+#         with:
+#           repository: "godotengine/godot"
+#           token:
+#             ${{ secrets.GITHUB_TOKEN }}
+#             # Make sure the actual branch is checked out when running on pull requests
+#           ref: ${{ github.head_ref }}
+#           # This is important to fetch the changes to the previous commit
+#           fetch-depth: 0
+
+#       - name: Set up MinGW
+#         if: runner.os == 'Linux'
+#         run: |
+#           curl -LO https://github.com/mstorsjo/llvm-mingw/releases/download/20201020/llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
+#           tar xvf llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
+#           mv llvm-mingw-20201020-ucrt-ubuntu-18.04 /opt/llvm-mingw
+#           export PATH="/opt/llvm-mingw/bin:$PATH"
+
+#       - name: Install Other Linux Dependencies
+#         if: runner.os == 'Linux'
+#         run: |
+#           sudo apt-get update -y
+#           sudo apt-get install -y python3 scons
+#           ls
+#       - name: Build GODOT
+#         run: scons -j6 platform=windows target=release_debug bits=64
