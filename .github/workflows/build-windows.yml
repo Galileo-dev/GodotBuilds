@@ -61,7 +61,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: bin/godot.windows.opt.tools.64.exe
+          # file: bin/godot.windows.opt.tools.64.exe
+          file: .github/workflows/build-windows.yml
           asset_name: godot.exe
           tag: ${{ github.ref }}
           overwrite: true
