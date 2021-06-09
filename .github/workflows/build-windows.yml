@@ -37,4 +37,4 @@ jobs:
           sudo apt-get install -y python3 scons
           ls
       - name: Build GODOT
-        run: scons platform=windows target=release_debug bits=64
+        run: scons -j6 platform=windows target=release_debug bits=64
