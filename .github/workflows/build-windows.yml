@@ -61,7 +61,7 @@ jobs:
       - name: Install Choco
         uses: crazy-max/ghaction-chocolatey@v1
         with:
-          args: install make yasm
+          args: install make yasm --no-progress
 
       # - name: Install Scoop
       #   if: runner.os == 'Windows'
