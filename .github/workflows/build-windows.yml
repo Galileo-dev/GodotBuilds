@@ -53,8 +53,8 @@ jobs:
         run: |
           Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
           scoop install python yasm make
-          echo %PATH%
           python --version
+          python -m pip install scons
       - run: ls
       - name: Build GODOT
         run: scons -j6 platform=windows target=release_debug bits=64
