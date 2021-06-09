@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -26,15 +26,38 @@ jobs:
         with:
           platform: x64
 
-      - name: Install MSVC
-        if: runner.os == 'Windows'
-        uses: ilammy/msvc-dev-cmd@v1
-
       - name: Install Other Linux Dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y
           sudo apt-get install -y python3 scons
           ls
-      - name: Build GODOT
-        run: scons -j6 platform=windows target=release_debug bits=64
+
+      - name: Install MSVC
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Install Scoop
+        if: runner.os == 'Windows'
+        run: |
+          Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
+          scoop install python scons yasm make
+
+      # - name: Build GODOT
+      #   run: scons -j6 platform=windows target=release_debug bits=64
+
+      # - name: Compress binaries
+      #   uses: edgarrc/action-7z@v1
+      #   with:
+      #     args: 7z a -t7z -mx=9 godot.7z ./tests/
+      # - run: ls
+      # - name: Upload binaries to release
+
+      #   uses: svenstaro/upload-release-action@v2
+      #   with:
+      #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #     file: bin
+      #     asset_name: mything
+      #     tag: ${{ github.ref }}
+      #     overwrite: true
+      #     body: "This is my release text"
