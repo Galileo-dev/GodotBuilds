@@ -20,16 +20,16 @@ jobs:
           # This is important to fetch the changes to the previous commit
           fetch-depth: 0
           clean: "false"
-      - name: get scripts
-        # run: |
-        #   git clone https://github.com/Galileo-dev/GodotBuilds temp
-        #   cp -a ./temp/. ./
-        #   ls
-        #   godot_version=$(python version.py)
-        #   echo "godot_version=${godot_version}"  >> $GITHUB_ENV
+      # - name: get scripts
+      # run: |
+      #   git clone https://github.com/Galileo-dev/GodotBuilds temp
+      #   cp -a ./temp/. ./
+      #   ls
+      #   godot_version=$(python version.py)
+      #   echo "godot_version=${godot_version}"  >> $GITHUB_ENV
 
-        #   # robocopy .\temp\ .\ /E
-        #   # del temp /q
+      #   # robocopy .\temp\ .\ /E
+      #   # del temp /q
 
       - name: Set up MinGW
         if: runner.os == 'Linux'
