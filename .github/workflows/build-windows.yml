@@ -9,17 +9,17 @@ jobs:
     name: Build
     runs-on: windows-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          repository: "godotengine/godot"
-          token:
-            ${{ secrets.GITHUB_TOKEN }}
-            # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-          # This is important to fetch the changes to the previous commit
-          fetch-depth: 0
-          clean: "false"
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: "godotengine/godot"
+      #     token:
+      #       ${{ secrets.GITHUB_TOKEN }}
+      #       # Make sure the actual branch is checked out when running on pull requests
+      #     ref: ${{ github.head_ref }}
+      #     # This is important to fetch the changes to the previous commit
+      #     fetch-depth: 0
+      #     clean: "false"
       # - name: get scripts
       # run: |
       #   git clone https://github.com/Galileo-dev/GodotBuilds temp
@@ -31,28 +31,30 @@ jobs:
       #   # robocopy .\temp\ .\ /E
       #   # del temp /q
 
-      - name: Set up MinGW
-        if: runner.os == 'Linux'
-        uses: egor-tensin/setup-mingw@v2
-        with:
-          platform: x64
+      # - name: Set up MinGW
+      #   if: runner.os == 'Linux'
+      #   uses: egor-tensin/setup-mingw@v2
+      #   with:
+      #     platform: x64
 
-      - name: Install Other Linux Dependencies
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y python3 scons
-          ls
+      # - name: Install Other Linux Dependencies
+      #   if: runner.os == 'Linux'
+      #   run: |
+      #     sudo apt-get update -y
+      #     sudo apt-get install -y python3 scons
+      #     ls
 
-      - name: Install MSVC
-        if: runner.os == 'Windows'
-        uses: ilammy/msvc-dev-cmd@v1
+      # - name: Install MSVC
+      #   if: runner.os == 'Windows'
+      #   uses: ilammy/msvc-dev-cmd@v1
 
       - name: Install Scoop
         if: runner.os == 'Windows'
         run: |
           Invoke-Expression (New-Object System.Net.WebClient).DownloadString('https://get.scoop.sh')
-          scoop install python scons yasm make
+          scoop install python yasm make
+          echo %PATH%
+          python --version
       - run: ls
       - name: Build GODOT
         run: scons -j6 platform=windows target=release_debug bits=64
