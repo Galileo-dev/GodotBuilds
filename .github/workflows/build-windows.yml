@@ -56,10 +56,11 @@ jobs:
           scoop install python yasm make
           dir
           scoop install scons
+          scons -j6 platform=windows target=release_debug bits=64
 
       # - run: ls
-      - name: Build GODOT
-        run: scons -j6 platform=windows target=release_debug bits=64
+      # - name: Build GODOT
+      #   run:
 
       # - name: Compress binaries
       #   uses: edgarrc/action-7z@v1
