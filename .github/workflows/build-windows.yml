@@ -20,31 +20,21 @@ jobs:
           # This is important to fetch the changes to the previous commit
           fetch-depth: 0
 
-      # - name: Set up MinGW
-      #   if: runner.os == 'Linux'
-      #   uses: egor-tensin/setup-mingw@v2
-      #   with:
-      #     platform: x64
+      - name: Set up MinGW
+        if: runner.os == 'Linux'
+        uses: egor-tensin/setup-mingw@v2
+        with:
+          platform: x64
 
-      # - name: Install MSVC
-      #   if: runner.os == 'Windows'
-      #   uses: ilammy/msvc-dev-cmd@v1
+      - name: Install MSVC
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
 
       - name: Install Other Linux Dependencies
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update -y
           sudo apt-get install -y python3 scons
-
+          ls
       - name: Build GODOT
         run: scons platform=windows target=release_debug bits=64
-
-  # Build:
-  #   runs-on: ubuntu-latest
-  #   needs:  dep
-  #   steps:
-  #   - uses: actions/stale@v1.1.0
-  #     with:
-  #       repo-token: ${{ secrets.GITHUB_TOKEN }}
-  #       stale-issue-message: 'Message to comment on stale issues. If none provided, will not mark issues stale'
-  #       stale-pr-message: 'Message to comment on stale PRs. If none provided, will not mark PRs stale'
