@@ -1,49 +1,71 @@
-# name: "Create weekly build"
-# on:
-#   # schedule:
-#   #   - cron: "0 0 * * *"
-#   push
+name: "Create weekly build"
+on:
+  # schedule:
+  #   - cron: "0 0 * * *"
+  push
 
-# jobs:
-#   build:
-#     name: Build
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-#         with:
-#           repository: "godotengine/godot"
-#           token:
-#             ${{ secrets.GITHUB_TOKEN }}
-#             # Make sure the actual branch is checked out when running on pull requests
-#           ref: ${{ github.head_ref }}
-#           # This is important to fetch the changes to the previous commit
-#           fetch-depth: 0
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: "godotengine/godot"
+          token:
+            ${{ secrets.GITHUB_TOKEN }}
+            # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+          # This is important to fetch the changes to the previous commit
+          fetch-depth: 0
 
-#       - name: Install Other Linux Dependencies
-#         if: runner.os == 'Linux'
-#         run: |
-#           sudo apt-get update -y
-#           sudo apt-get install -y python3 scons
-#           ls
+      - name: Get Version
+        run: |
+          curl -LO "https://raw.githubusercontent.com/godotengine/godot/master/version.py"
+          echo "major=$(grep "major" version.py | cut -d" " -f3)"  >> $GITHUB_ENV
+          echo "minor=$(grep "minor" version.py | cut -d" " -f3)" >> $GITHUB_ENV
+          echo "patch=$(grep "patch" version.py | cut -d" " -f3)" >> $GITHUB_ENV
+          echo "status=$(grep "status" version.py | cut -d" " -f3)" >> $GITHUB_ENV
 
-#       - name: Set up MinGW
-#         if: runner.os == 'Linux'
-#         run: |
-#           curl -LO https://github.com/mstorsjo/llvm-mingw/releases/download/20201020/llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
-#           tar xvf llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
-#           mv llvm-mingw-20201020-ucrt-ubuntu-18.04 /opt/llvm-mingw
-#           export PATH="/opt/llvm-mingw/bin:$PATH"
-#           scons -j6 platform=windows bits="64" tools=yes target=release_debug use_llvm=yes
-#       # - name: Build GODOT
-#       #   run: scons -j6 platform=windows target=release_debug bits=64 use_llvm=yes
+      - name: Add Version
+        run: |
+          echo "GOT=${{env.major}}.${{env.minor}}.${{env.patch}}-${{env.status}}" >> $GITHUB_ENV
 
-#       - name: Upload binaries to release
-#         uses: svenstaro/upload-release-action@v2
-#         with:
-#           repo_token: ${{ secrets.GITHUB_TOKEN }}
-#           file: bin/godot.windows.opt.tools.64.exe
-#           asset_name: godot.exe
-#           tag: ${{ github.ref }}
-#           overwrite: true
-#           body: "This is my test release"
+      - name: Test Version Name
+        run: |
+          echo "${{env.GOT}}"
+
+      - name: Install Other Linux Dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y python3 scons
+          ls
+
+      - name: Set up MinGW
+        if: runner.os == 'Linux'
+        run: |
+          curl -LO https://github.com/mstorsjo/llvm-mingw/releases/download/20201020/llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
+          tar xvf llvm-mingw-20201020-ucrt-ubuntu-18.04.tar.xz
+          mv llvm-mingw-20201020-ucrt-ubuntu-18.04 /opt/llvm-mingw
+          export PATH="/opt/llvm-mingw/bin:$PATH" 
+          echo "/opt/llvm-mingw/bin" >> $GITHUB_PATH
+          scons -j$(nproc) platform=windows bits="64" target=release_debug use_llvm=yes
+
+      # - name: Build GODOT
+      #   run: scons -j6 platform=windows target=release_debug bits=64 use_llvm=yes
+      - name: Output Check
+        run: |
+          cd bin
+          ls
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: bin/godot.windows.opt.tools.64.exe
+          asset_name: windows-x64-godot.exe
+          tag: ${{env.GOT}}
+          overwrite: true
+          body: "This is my test release"
