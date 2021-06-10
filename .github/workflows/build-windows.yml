@@ -1,68 +1,68 @@
-# name: "Create weekly build"
-# on:
-#   # schedule:
-#   #   - cron: "0 0 * * *"
-#   push
+name: "Create weekly build"
+on:
+  # schedule:
+  #   - cron: "0 0 * * *"
+  push
 
-# jobs:
-#   build:
-#     name: Build
-#     runs-on: windows-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-#         with:
-#           repository: "godotengine/godot"
-#           token:
-#             ${{ secrets.GITHUB_TOKEN }}
-#             # Make sure the actual branch is checked out when running on pull requests
-#           ref: ${{ github.head_ref }}
-#           # This is important to fetch the changes to the previous commit
-#           fetch-depth: 0
-#           # clean: "false"
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          repository: "godotengine/godot"
+          token:
+            ${{ secrets.GITHUB_TOKEN }}
+            # Make sure the actual branch is checked out when running on pull requests
+          ref: ${{ github.head_ref }}
+          # This is important to fetch the changes to the previous commit
+          fetch-depth: 0
+          # clean: "false"
 
-#       - name: get scripts
-#         run: |
-#           git clone https://github.com/Galileo-dev/GodotBuilds temp
-#           cp -a ./temp/. ./
-#           ls
-#           godot_version=$(python version.py)
-#           echo "godot_version=${godot_version}"  >> $GITHUB_ENV
+      - name: get scripts
+        run: |
+          git clone https://github.com/Galileo-dev/GodotBuilds temp
+          cp -a ./temp/. ./
+          ls
+          godot_version=$(python version.py)
+          echo "godot_version=${godot_version}"  >> $GITHUB_ENV
 
-#           # robocopy .\temp\ .\ /E
-#           # del temp /q
+          # robocopy .\temp\ .\ /E
+          # del temp /q
 
-#       - name: Install MSVC
-#         if: runner.os == 'Windows'
-#         uses: ilammy/msvc-dev-cmd@v1
+      - name: Install MSVC
+        if: runner.os == 'Windows'
+        uses: ilammy/msvc-dev-cmd@v1
 
-#       - name: Install Python
-#         uses: actions/setup-python@v2
-#         with:
-#           python-version: "3.x" # Version range or exact version of a Python version to use, using SemVer's version range syntax
-#           architecture: "x64" # optional x64 or x86. Defaults to x64 if not specified
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x" # Version range or exact version of a Python version to use, using SemVer's version range syntax
+          architecture: "x64" # optional x64 or x86. Defaults to x64 if not specified
 
-#       - name: Install Scons
-#         run: python -m pip install scons
+      - name: Install Scons
+        run: python -m pip install scons
 
-#       - name: Install Choco
-#         uses: crazy-max/ghaction-chocolatey@v1
-#         with:
-#           args: -h
+      - name: Install Choco
+        uses: crazy-max/ghaction-chocolatey@v1
+        with:
+          args: -h
 
-#       - run: choco install yasm make
+      - run: choco install yasm make
 
-#       - run: ls
+      - run: ls
 
-#       - name: Build GODOT
-#         run: scons -j6 platform=windows target=release_debug
+      - name: Build GODOT
+        run: scons -j6 platform=windows target=release_debug
 
-#       - name: Upload binaries to release
-#         uses: svenstaro/upload-release-action@v2
-#         with:
-#           repo_token: ${{ secrets.GITHUB_TOKEN }}
-#           file: bin/godot.windows.opt.tools.64.exe
-#           asset_name: windows-x64-godot.exe
-#           tag: ${{ env.godot_version }}
-#           overwrite: true
-#           body: "This is my test release"
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: bin/godot.windows.opt.tools.64.exe
+          asset_name: windows-x64-godot.exe
+          tag: ${{ env.godot_version }}
+          overwrite: true
+          body: "This is my test release"
