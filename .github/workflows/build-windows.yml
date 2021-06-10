@@ -24,13 +24,11 @@ jobs:
       - name: get scripts
         run: |
           git clone https://github.com/Galileo-dev/GodotBuilds temp
-          cp -a ./temp/. ./
+          robocopy .\temp\ .\ /E
+          del temp /q
           ls
           godot_version=$(python version.py)
           echo "godot_version=${godot_version}"  >> $GITHUB_ENV
-
-          # robocopy .\temp\ .\ /E
-          # del temp /q
 
       - name: Install MSVC
         if: runner.os == 'Windows'
