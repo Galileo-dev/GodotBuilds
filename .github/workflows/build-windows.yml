@@ -1,7 +1,7 @@
 name: "Create weekly build"
 on:
-  # schedule:
-  #   - cron: "0 0 * * *"
+  schedule:
+    - cron: "0 0 * * *"
   push
 
 jobs:
@@ -21,13 +21,13 @@ jobs:
           fetch-depth: 0
           # clean: "false"
 
-      - name: get scripts
-        run: |
-          git clone https://github.com/Galileo-dev/GodotBuilds temp
-          robocopy .\temp\ .\ /E
-          ls
-          echo "godot_version=$(python version.py)"  >> $GITHUB_ENV
-          # del temp /q
+      # - name: get scripts
+      #   run: |
+      #     git clone https://github.com/Galileo-dev/GodotBuilds temp
+      #     robocopy .\temp\ .\ /E
+      #     ls
+      #     echo "godot_version=$(python version.py)"  >> $GITHUB_ENV
+      #     # del temp /q
 
       - name: Install MSVC
         if: runner.os == 'Windows'
@@ -60,6 +60,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: bin/godot.windows.opt.tools.64.exe
           asset_name: windows-x64-godot.exe
-          tag: ${{ env.godot_version }}
+          tag: "Latest"
           overwrite: true
           body: "This is my test release"
