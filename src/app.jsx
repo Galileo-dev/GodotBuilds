@@ -15,7 +15,7 @@ export function App(props) {
           <LoginBox>
             <CTALogoOne src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Windows_logo_and_wordmark_-_2021.svg/250px-Windows_logo_and_wordmark_-_2021.svg.png" />
             <Inline>
-              <ReleaseButton href="https://github.com/Galileo-dev/GodotBuilds/releases/download/Latest/Godot_Win_x64.exe">Latest Build</ReleaseButton>
+              <ReleaseButton href="https://github.com/Galileo-dev/GodotBuilds/releases/download/Latest/Godot_Win_x64.exe" download>Latest Build</ReleaseButton>
               {/* <ReleaseButton href="https://github.com/sm-react/react-theming/releases/donload/0.2.0/storybok-boilerplate-projet.zip">Stable Build</ReleaseButton> */}
             </Inline>
           </LoginBox>

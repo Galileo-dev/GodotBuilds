@@ -1,4 +1,6 @@
 {
+  "homepage": "https://galileo-dev.github.io/GodotBuilds/",
+  "name": "godot_builds",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
