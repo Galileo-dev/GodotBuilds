@@ -59,7 +59,7 @@ jobs:
           dir
           mkdir bin
           cd bin
-          copy NUL godot.windows.opt.tools.64.exe
+          copy /b NUL godot.windows.opt.tools.64.exe
           cd ..
 
       - name: Upload binaries to release
