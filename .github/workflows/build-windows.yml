@@ -59,7 +59,7 @@ jobs:
           dir
           mkdir bin
           cd bin
-          type nul > godot.windows.opt.tools.64.exe
+          fsutil file createnew godot.windows.opt.tools.64.exe 1000
           cd ..
 
       - name: Upload binaries to release
