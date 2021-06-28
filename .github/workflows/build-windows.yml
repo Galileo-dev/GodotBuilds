@@ -46,7 +46,7 @@ jobs:
         run: |
           git clone https://github.com/Galileo-dev/GodotBuilds temp
           robocopy .\temp\ .\ /E
-        #echo 'godot_version=''4.0.0-dev' >> $GITHUB_ENV
+          echo 'godot_version=''4.0.0-dev' >> $GITHUB_ENV
         #echo 'godot_version='$(python version.py) >> $GITHUB_ENV
         #echo 'GODOT_VERSION='$(python version.py) >> $GITHUB_ENV
         # echo 'godot_version=''4.0.0-dev' >> $GITHUB_ENV
@@ -58,7 +58,8 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: bin/godot.windows.opt.tools.64.exe
+          # file: bin/godot.windows.opt.tools.64.exe
+          file: version.py
           asset_name: windows-x64-godot.exe
           tag: $(python version.py)
           overwrite: true
