@@ -22,16 +22,6 @@ jobs:
           fetch-depth: 0
           # clean: "false"
 
-      - name: get scripts
-        id: vars
-        run: |
-          git clone https://github.com/Galileo-dev/GodotBuilds temp
-          robocopy .\temp\ .\ /E
-          ls
-          set output=$(python version.py)
-          echo "::set-output name=godot_version::$(%output%)"
-          # del temp /q
-
       # - name: Install MSVC
       #   if: runner.os == 'Windows'
       #   uses: ilammy/msvc-dev-cmd@v1
@@ -41,6 +31,14 @@ jobs:
         with:
           python-version: "3.x" # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: "x64" # optional x64 or x86. Defaults to x64 if not specified
+          
+      - uses: jannekem/run-python-script-action@v1
+          id: script
+          with:
+            fail-on-error: false
+            script: |
+              import version
+              print(f'{version.major}.{version.minor}.{version.patch}-{version.status}')
 
       # - name: Install Scons
       #   run: python -m pip install scons
@@ -70,6 +68,9 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: bin/godot.windows.opt.tools.64.exe
           asset_name: godot_win_x64.exe
-          tag: ${{steps.vars.outputs.godot_version}}
+          tag: $SCRIPT_STDOUT
           overwrite: true
           body: "This is my test release"
+        env:
+          SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
+          SCRIPT_STDERR: ${{ steps.script.outputs.stderr }} 
