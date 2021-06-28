@@ -10,21 +10,29 @@ jobs:
     name: Build
     runs-on: windows-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-        with:
-          repository: "godotengine/godot"
-          token:
-            ${{ secrets.GITHUB_TOKEN }}
-            # Make sure the actual branch is checked out when running on pull requests
-          ref: ${{ github.head_ref }}
-          # This is important to fetch the changes to the previous commit
-          fetch-depth: 0
-          # clean: "false"
+      # - name: Checkout code
+      #   uses: actions/checkout@v2
+      #   with:
+      #     repository: "godotengine/godot"
+      #     token:
+      #       ${{ secrets.GITHUB_TOKEN }}
+      #       # Make sure the actual branch is checked out when running on pull requests
+      #     ref: ${{ github.head_ref }}
+      #     # This is important to fetch the changes to the previous commit
+      #     fetch-depth: 0
+      #     # clean: "false"
 
       # - name: Install MSVC
       #   if: runner.os == 'Windows'
       #   uses: ilammy/msvc-dev-cmd@v1
+
+      - name: create fake build
+        run: |
+          dir
+          mkdir bin
+          cd bin
+          fsutil file createnew godot.windows.opt.tools.64.exe 1000
+          cd ..
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -32,13 +40,13 @@ jobs:
           python-version: "3.x" # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: "x64" # optional x64 or x86. Defaults to x64 if not specified
 
-      - uses: jannekem/run-python-script-action@v1
-        id: script
-        with:
-          fail-on-error: true
-          script: |
-            import version
-            print(f'{version.major}.{version.minor}.{version.patch}-{version.status}-test')
+      # - uses: jannekem/run-python-script-action@v1
+      #   id: script
+      #   with:
+      #     fail-on-error: true
+      #     script: |
+      #       import version
+      #       print(f'{version.major}.{version.minor}.{version.patch}-{version.status}-test')
 
       - uses: jannekem/run-python-script-action@v1
         with:
@@ -68,14 +76,6 @@ jobs:
 
       # - name: Build GODOT
       #   run: scons -j6 platform=windows target=release_debug
-
-      - name: create fake build
-        run: |
-          dir
-          mkdir bin
-          cd bin
-          fsutil file createnew godot.windows.opt.tools.64.exe 1000
-          cd ..
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
