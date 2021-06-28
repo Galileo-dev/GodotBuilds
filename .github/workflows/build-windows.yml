@@ -68,7 +68,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: bin/godot.windows.opt.tools.64.exe
           asset_name: godot_win_x64.exe
-          tag: $SCRIPT_STDOUT
+          tag: ${{env.SCRIPT_STDOUT}}
           overwrite: true
           body: "This is my test release"
         env:
