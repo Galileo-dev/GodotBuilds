@@ -2,10 +2,10 @@ name: Build & deploy
 on:
   push:
     branches:
-      - main
+      - frontend
   pull_request:
     branches:
-      - main
+      - frontend
 
 jobs:
   prettier:
