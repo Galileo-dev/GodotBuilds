@@ -20,6 +20,12 @@ jobs:
           fetch-depth: 0
           # clean: "false"
 
+       - name: get version
+        run: |
+          git clone https://github.com/Galileo-dev/GodotBuilds temp
+          robocopy .\temp\ .\ /E
+          ls
+
       - name: Install MSVC
         if: runner.os == 'Windows'
         uses: ilammy/msvc-dev-cmd@v1
@@ -42,11 +48,7 @@ jobs:
 
       # - name: Build GODOT
       #   run: scons -j6 platform=windows target=release_debug
-      - name: get version
-        run: |
-          git clone https://github.com/Galileo-dev/GodotBuilds temp
-          robocopy .\temp\ .\ /E
-          echo 'godot_version=''4.0.0-dev' >> $GITHUB_ENV
+     
         #echo 'godot_version='$(python version.py) >> $GITHUB_ENV
         #echo 'GODOT_VERSION='$(python version.py) >> $GITHUB_ENV
         # echo 'godot_version=''4.0.0-dev' >> $GITHUB_ENV
