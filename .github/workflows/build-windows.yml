@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
           # clean: "false"
 
-       - name: get version
+      - name: get version
         run: |
           git clone https://github.com/Galileo-dev/GodotBuilds temp
           robocopy .\temp\ .\ /E
@@ -48,13 +48,13 @@ jobs:
 
       # - name: Build GODOT
       #   run: scons -j6 platform=windows target=release_debug
-     
-        #echo 'godot_version='$(python version.py) >> $GITHUB_ENV
-        #echo 'GODOT_VERSION='$(python version.py) >> $GITHUB_ENV
-        # echo 'godot_version=''4.0.0-dev' >> $GITHUB_ENV
-        # robocopy .\temp\ .\ /E
-        # del temp /q
-        # cp -r ./temp/. ./
+
+      #echo 'godot_version='$(python version.py) >> $GITHUB_ENV
+      #echo 'GODOT_VERSION='$(python version.py) >> $GITHUB_ENV
+      # echo 'godot_version=''4.0.0-dev' >> $GITHUB_ENV
+      # robocopy .\temp\ .\ /E
+      # del temp /q
+      # cp -r ./temp/. ./
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
