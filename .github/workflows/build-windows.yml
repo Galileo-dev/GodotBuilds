@@ -30,9 +30,9 @@ jobs:
           echo "godot_version=$(python version.py)"  >> $GITHUB_ENV
           # del temp /q
 
-      - name: Install MSVC
-        if: runner.os == 'Windows'
-        uses: ilammy/msvc-dev-cmd@v1
+      # - name: Install MSVC
+      #   if: runner.os == 'Windows'
+      #   uses: ilammy/msvc-dev-cmd@v1
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -40,26 +40,32 @@ jobs:
           python-version: "3.x" # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: "x64" # optional x64 or x86. Defaults to x64 if not specified
 
-      - name: Install Scons
-        run: python -m pip install scons
+      # - name: Install Scons
+      #   run: python -m pip install scons
 
-      - name: Install Choco
-        uses: crazy-max/ghaction-chocolatey@v1
-        with:
-          args: -h
-      - run: choco install yasm make
+      # - name: Install Choco
+      #   uses: crazy-max/ghaction-chocolatey@v1
+      #   with:
+      #     args: -h
+      # - run: choco install yasm make
 
-      - run: ls
+      # - run: ls
 
-      - name: Build GODOT
-        run: scons -j6 platform=windows target=release_debug
+      # - name: Build GODOT
+      #   run: scons -j6 platform=windows target=release_debug
+
+      - name: create fake build
+        run: |
+          cd bin
+          copy NUL godot.windows.opt.tools.64.exe
+          cd ..
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: bin/godot.windows.opt.tools.64.exe
-          asset_name: windows-x64-godot.exe
+          asset_name: godot_win_x64.exe
           tag: echo "$(python version.py)"
           overwrite: true
           body: "This is my test release"
