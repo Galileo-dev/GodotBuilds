@@ -38,7 +38,16 @@ jobs:
           fail-on-error: false
           script: |
             import version
-            print(f'{version.major}.{version.minor}.{version.patch}-{version.status}')
+            print(f'{version.major}.{version.minor}.{version.patch}-{version.status}-test')
+
+      - name: Print errors
+        if: steps.script.outputs.error == 'true'
+        run: |
+          printenv "SCRIPT_STDOUT"
+          printenv "SCRIPT_STDERR"
+        env:
+          SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
+          SCRIPT_STDERR: ${{ steps.script.outputs.stderr }}
 
       # - name: Install Scons
       #   run: python -m pip install scons
