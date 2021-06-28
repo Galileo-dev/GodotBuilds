@@ -23,11 +23,13 @@ jobs:
           # clean: "false"
 
       - name: get scripts
+        id: vars
         run: |
           git clone https://github.com/Galileo-dev/GodotBuilds temp
           robocopy .\temp\ .\ /E
           ls
-          echo "godot_version=$(python version.py)"  >> $GITHUB_ENV
+          echo ::set-output name=godot_version::$(python version.py)"  >> $GITHUB_ENV
+
           # del temp /q
 
       # - name: Install MSVC
@@ -68,6 +70,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: bin/godot.windows.opt.tools.64.exe
           asset_name: godot_win_x64.exe
-          tag: ${echo hello}
+          tag: ${{steps.vars.outputs.godot_version}}
           overwrite: true
           body: "This is my test release"
