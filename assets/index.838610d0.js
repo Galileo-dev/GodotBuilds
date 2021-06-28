@@ -1,4 +1,4 @@
-import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,null,n(r,null,n(d,null,n(l,null,"Download Godot Builds"),n(a,null," Unfortunately I have not made any builds for Linux or MacOs yet"),n(u,null,n(m,null,n(s,{src:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Windows_logo_and_wordmark_-_2021.svg/250px-Windows_logo_and_wordmark_-_2021.svg.png"}),n(c,null,n(p,{href:"https://github.com/Galileo-dev/GodotBuilds/releases/download/Latest/Godot_Win_x64.exe"},"Latest Build")))))))}const o=e.section`
+import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,null,n(r,null,n(d,null,n(l,null,"Download Godot Builds"),n(a,null," Unfortunately I have not made any builds for Linux or MacOs yet"),n(u,null,n(m,null,n(s,{src:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Windows_logo_and_wordmark_-_2021.svg/250px-Windows_logo_and_wordmark_-_2021.svg.png"}),n(c,null,n(p,{href:"https://github.com/Galileo-dev/GodotBuilds/releases/download/Latest/Godot_Win_x64.exe",download:!0},"Latest Build")))))))}const o=e.section`
   display: flex;
   flex-direction: column;
   text-align: center;
