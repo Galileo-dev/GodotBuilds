@@ -28,7 +28,7 @@ jobs:
           git clone https://github.com/Galileo-dev/GodotBuilds temp
           robocopy .\temp\ .\ /E
           ls
-          echo ::set-output name=godot_version::$(python version.py)"  >> $GITHUB_ENV
+          echo ::set-output name=godot_version::$(python version.py)
 
           # del temp /q
 
