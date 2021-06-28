@@ -1,8 +1,8 @@
 name: "Create weekly build"
 on:
-  schedule:
-    - cron: "0 0 * * *"
-  push:
+  # schedule:
+  #   - cron: "0 0 * * *"
+  push
 jobs:
   build:
     name: Build
@@ -20,11 +20,14 @@ jobs:
           fetch-depth: 0
           # clean: "false"
 
-      - name: get version
+      - name: get scripts
         run: |
           git clone https://github.com/Galileo-dev/GodotBuilds temp
           robocopy .\temp\ .\ /E
           ls
+          godot_version=$(python version.py)
+          echo "godot_version=${godot_version}"  >> $GITHUB_ENV
+          # del temp /q
 
       - name: Install MSVC
         if: runner.os == 'Windows'
@@ -46,22 +49,16 @@ jobs:
 
       - run: choco install yasm make
 
-      # - name: Build GODOT
-      #   run: scons -j6 platform=windows target=release_debug
+      - run: ls
 
-      #echo 'godot_version='$(python version.py) >> $GITHUB_ENV
-      #echo 'GODOT_VERSION='$(python version.py) >> $GITHUB_ENV
-      # echo 'godot_version=''4.0.0-dev' >> $GITHUB_ENV
-      # robocopy .\temp\ .\ /E
-      # del temp /q
-      # cp -r ./temp/. ./
+      - name: Build GODOT
+        run: scons -j6 platform=windows target=release_debug
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          # file: bin/godot.windows.opt.tools.64.exe
-          file: version.py
+          file: bin/godot.windows.opt.tools.64.exe
           asset_name: windows-x64-godot.exe
           tag: $(python version.py)
           overwrite: true
