@@ -68,9 +68,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: bin/godot.windows.opt.tools.64.exe
           asset_name: godot_win_x64.exe
-          tag: ${SCRIPT_STDOUT}
+          tag: |
+            ${{ steps.script.outputs.stdout }}
           overwrite: true
           body: "This is my test release"
-        env:
-          SCRIPT_STDOUT: ${{ steps.script.outputs.stdout }}
-          SCRIPT_STDERR: ${{ steps.script.outputs.stderr }}
