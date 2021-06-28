@@ -28,9 +28,7 @@ jobs:
           git clone https://github.com/Galileo-dev/GodotBuilds temp
           robocopy .\temp\ .\ /E
           ls
-          echo ::set-output name=godot_version::$(python version.py)
-
-          # del temp /q
+          echo ::set-output name=godot_version::4.0.0-dev
 
       # - name: Install MSVC
       #   if: runner.os == 'Windows'
