@@ -2,7 +2,9 @@ name: "Create weekly build"
 on:
   # schedule:
   #   - cron: "0 0 * * *"
-  push
+  push:
+    branches:
+      - master
 jobs:
   build:
     name: Build
@@ -58,6 +60,6 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: bin/godot.windows.opt.tools.64.exe
           asset_name: windows-x64-godot.exe
-          tag: $(python version.py)
+          tag: echo "$(python version.py)"
           overwrite: true
           body: "This is my test release"
