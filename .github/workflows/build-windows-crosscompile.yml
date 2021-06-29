@@ -2,7 +2,9 @@ name: "Create weekly build"
 on:
   schedule:
     - cron: "0 0 * * *"
-
+  push:
+    branches:
+      - master
 jobs:
   build:
     name: Build
@@ -52,8 +54,8 @@ jobs:
           echo "/opt/llvm-mingw/bin" >> $GITHUB_PATH
           scons -j$(nproc) platform=windows bits="64" target=release_debug use_llvm=yes
 
-      # - name: Build GODOT
-      #   run: scons -j6 platform=windows target=release_debug bits=64 use_llvm=yes
+      - name: Build GODOT
+        run: scons -j6 platform=windows target=release_debug bits=64 use_llvm=yes
       - name: Output Check
         run: |
           cd bin
