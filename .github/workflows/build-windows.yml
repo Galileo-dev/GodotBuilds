@@ -42,6 +42,7 @@ jobs:
           echo "status=$(grep "status" version.py | cut -d" " -f3)" >> $GITHUB_ENV
 
       - name: Add Version
+        shell: msys2 {0}
         run: |
           echo "GOT=${{env.major}}.${{env.minor}}.${{env.patch}}-${{env.status}}" >> $GITHUB_ENV
 
