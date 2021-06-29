@@ -7,15 +7,16 @@ export function App(props) {
     <Container>
       <Content>
         <CTA>
-          
+       
         <Headers>Download Godot Builds</Headers>
         <Description> Unfortunately I have not made any builds for Linux or MacOs yet</Description>
-        
         <OutLinedBox>
           <LoginBox>
+            {/* <Badge status="Failing"><BadgeName>Builds</BadgeName ><BadgeStatus>Failing</BadgeStatus></Badge> */}
             <CTALogoOne src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Windows_logo_and_wordmark_-_2021.svg/250px-Windows_logo_and_wordmark_-_2021.svg.png" />
             <Inline>
-              <ReleaseButton href="https://github.com/Galileo-dev/GodotBuilds/releases/download/Latest/Godot_Win_x64.exe" download>Latest Build</ReleaseButton>
+              <ReleaseButton href="https://github.com/Galileo-dev/GodotBuilds/releases/latest/download/godot_win_x64.exe" download width="9em">Latest Build</ReleaseButton>
+              <ReleaseButton href="https://github.com/Galileo-dev/GodotBuilds/releases/latest/download/godot_win_x64_cross_compiled.exe" download width="19em">Latest Cross-Compiled Build</ReleaseButton>
               {/* <ReleaseButton href="https://github.com/sm-react/react-theming/releases/donload/0.2.0/storybok-boilerplate-projet.zip">Stable Build</ReleaseButton> */}
             </Inline>
           </LoginBox>
@@ -37,11 +38,42 @@ const Container = styled.section`
   height: auto;
 `;
 
+const Badge = styled.div`
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 5px;
+`
+
+const BadgeName = styled.span`
+  background: rgba(212, 174, 168, 0.082);
+  color: #ffdbdb;
+  border-radius: 5px 0px 0px 5px;
+  border: 2px solid #912727;
+  border-right:none;
+  padding: 5px 10px;
+  font-weight: bolder;
+  text-align: center;
+  box-shadow: 0 0 10px #9ecaed;
+`
+
+const BadgeStatus = styled.span`
+  background: rgba(231, 44, 19, 0.082);
+  color: #e64545;
+  border-radius: 0px 5px 5px 0px;
+  padding: 5px 10px;
+  font-weight: 800;
+  border: 2px solid #912727;
+  letter-spacing: 0.1em;
+  box-shadow: 0 0 10px #9ecaed;
+  box-shadow-left: none;
+  
+`
+
 const Content = styled.section`
   width: 100%;
   position: relative;
   box-sizing: border-box;
-  display: flex;
+  display: flex;  
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -61,7 +93,7 @@ const Headers = styled.h1`
 `
 
 const CTALogoOne = styled.img`
-  margin: 12px;
+  margin: 40px;
   max-width: 550px;
   min-height: 1px;
   display: block;
@@ -102,7 +134,9 @@ const ReleaseButton = styled.a`
   background-color: #0063e5;
   margin: 12px;
   margin-top: 30px;
-  width: 9em;
+  max-width: ${props => props.width};
+  width: 100%;
+  min-width: 6em;
   border: 1px solid transparent;
   letter-spacing: 1.5px;
   font-size: 18px;
