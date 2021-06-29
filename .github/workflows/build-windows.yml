@@ -50,13 +50,13 @@ jobs:
         run: |
           echo "${{env.GOT}}"
 
-      # - name: create fake build
-      #   run: |
-      #     dir
-      #     mkdir bin
-      #     cd bin
-      #     fsutil file createnew godot.windows.opt.tools.64.exe 1000
-      #     cd ..
+      - name: create fake build
+        run: |
+          dir
+          mkdir bin
+          cd bin
+          fsutil file createnew godot.windows.opt.tools.64.exe 1000
+          cd ..
 
       # - name: Install Python
       #   uses: actions/setup-python@v2
