@@ -1,13 +1,38 @@
-import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,null,n(r,null,n(d,null,n(l,null,"Download Godot Builds"),n(a,null," Unfortunately I have not made any builds for Linux or MacOs yet"),n(u,null,n(m,null,n(s,{src:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Windows_logo_and_wordmark_-_2021.svg/250px-Windows_logo_and_wordmark_-_2021.svg.png"}),n(c,null,n(p,{href:"https://github.com/Galileo-dev/GodotBuilds/releases/download/Latest/Godot_Win_x64.exe",download:!0},"Latest Build")))))))}const o=e.section`
+import{q as e,a as o,N as i}from"./vendor.81b4ca82.js";function t(e){return o(n,null,o(r,null,o(s,null,o(l,null,"Download Godot Builds"),o(a,null," Unfortunately I have not made any builds for Linux or MacOs yet"),o(m,null,o(x,null,o(d,{src:"https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Windows_logo_and_wordmark_-_2021.svg/250px-Windows_logo_and_wordmark_-_2021.svg.png"}),o(p,null,o(c,{href:"https://github.com/Galileo-dev/GodotBuilds/releases/latest/download/godot_win_x64.exe",download:!0,width:"9em"},"Latest Build"),o(c,{href:"https://github.com/Galileo-dev/GodotBuilds/releases/latest/download/godot_win_x64_cross_compiled.exe",download:!0,width:"19em"},"Latest Cross-Compiled Build")))))))}const n=e.section`
   display: flex;
   flex-direction: column;
   text-align: center;
   height: auto;
-`,r=e.section`
+`;e.div`
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 5px;
+`,e.span`
+  background: rgba(212, 174, 168, 0.082);
+  color: #ffdbdb;
+  border-radius: 5px 0px 0px 5px;
+  border: 2px solid #912727;
+  border-right:none;
+  padding: 5px 10px;
+  font-weight: bolder;
+  text-align: center;
+  box-shadow: 0 0 10px #9ecaed;
+`,e.span`
+  background: rgba(231, 44, 19, 0.082);
+  color: #e64545;
+  border-radius: 0px 5px 5px 0px;
+  padding: 5px 10px;
+  font-weight: 800;
+  border: 2px solid #912727;
+  letter-spacing: 0.1em;
+  box-shadow: 0 0 10px #9ecaed;
+  box-shadow-left: none;
+  
+`;const r=e.section`
   width: 100%;
   position: relative;
   box-sizing: border-box;
-  display: flex;
+  display: flex;  
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -20,8 +45,8 @@ import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,
   letter-spacing: 1.5px;
 `,l=e.h1`
   font-size: 4rem;
-`,s=e.img`
-  margin: 12px;
+`,d=e.img`
+  margin: 40px;
   max-width: 550px;
   min-height: 1px;
   display: block;
@@ -29,7 +54,7 @@ import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,
   transition-timing-function: ease-in;
   transition: opacity 1s;
   
-`,d=e.div`
+`,s=e.div`
   margin-bottom: 2vw;
   max-width: 650px;
   flex-wrap: wrap;
@@ -45,9 +70,9 @@ import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,
   transition-timing-function: ease-out;
   transition: opacity 0.2s;
   width: 100%;
-`,c=e.div`
+`,p=e.div`
   display: inline;
-`,p=e.a`
+`,c=e.a`
   display: inline-block;
   font-weight: bold;
   color: #f9f9f9;
@@ -55,7 +80,9 @@ import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,
   background-color: #0063e5;
   margin: 12px;
   margin-top: 30px;
-  width: 9em;
+  max-width: ${e=>e.width};
+  width: 100%;
+  min-width: 6em;
   border: 1px solid transparent;
   letter-spacing: 1.5px;
   font-size: 18px;
@@ -78,7 +105,7 @@ import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,
   &:active {
     transform: scale(0.95);
   }
-`,m=e.div`
+`,x=e.div`
   max-width: 650px;
   flex-wrap: wrap;
   display: flex;
@@ -90,11 +117,11 @@ import{q as e,a as n,N as t}from"./vendor.81b4ca82.js";function i(e){return n(o,
   text-align: center;
   transition-timing-function: ease-out;
   transition: opacity 0.2s;
-`,u=e.div`
+`,m=e.div`
   background-color: #1a1d29;
   border-radius: 33px;
   border: 2px solid white;
   align-items: center;
   text-align: center;
   margin-bottom: 20px;
-`;t(n(i,null),document.getElementById("app"));
+`;i(o(t,null),document.getElementById("app"));
