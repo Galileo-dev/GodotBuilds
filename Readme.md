@@ -1,5 +1,5 @@
 # Godot Build
-The godot game engine can be found (here)[https://github.com/godotengine/godot]
+The godot game engine can be found [here](https://github.com/godotengine/godot)
 
 ## Supported Platforms
 * Windows
