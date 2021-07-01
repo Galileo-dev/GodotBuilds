@@ -57,7 +57,7 @@ jobs:
 
       - name: Build GODOT
         run: scons -j6 platform=windows target=release_debug bits=64 use_mingw=yes use_llvm=yes use_lld=yes use_thinlto=yes LINKFLAGS=-Wl,-pdb= CCFLAGS='-g -gcodeview' debug_symbols=no
-      
+
       - name: Output Check
         run: |
           cd bin

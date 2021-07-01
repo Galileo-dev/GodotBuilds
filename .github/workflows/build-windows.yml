@@ -54,13 +54,13 @@ jobs:
         run: |
           echo "${{env.GOT}}"
 
-      - name: create fake build
-        run: |
-          dir
-          mkdir bin
-          cd bin
-          fsutil file createnew godot.windows.opt.tools.64.exe 1000
-          cd ..
+      # - name: create fake build
+      #   run: |
+      #     dir
+      #     mkdir bin
+      #     cd bin
+      #     fsutil file createnew godot.windows.opt.tools.64.exe 1000
+      #     cd ..
 
       - name: Install Python
         uses: actions/setup-python@v2
@@ -81,7 +81,7 @@ jobs:
       - run: ls
 
       - name: Build GODOT
-        run: scons -j6 platform=windows target=release_debug
+        run: scons -j6 platform=windows target=release_debug debug_symbols=no
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
