@@ -57,7 +57,7 @@ jobs:
           scons -j$(nproc) platform=windows bits="64" target=release_debug use_llvm=yes
 
       - name: Build GODOT
-        run: scons -j6 platform=windows target=release_debug bits=64 use_llvm=yes debug_symbols=no optimize=size
+        run: scons -j6 platform=windows target=release_debug bits=64 use_mingw=yes use_llvm=yes use_lld=yes use_thinlto=yes LINKFLAGS=-Wl,-pdb= CCFLAGS='-g -gcodeview' debug_symbols=no
       - name: Output Check
         run: |
           cd bin
